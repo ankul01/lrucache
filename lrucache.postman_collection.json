@@ -1,0 +1,140 @@
+{
+  "info": {
+    "_postman_id": "f4f0dc10-4f81-4f49-85b2-5ff376be4e85",
+    "name": "LRU Cache API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for testing the local Spring Boot LRU Cache API. Update the collection variables cacheKey and cacheValue before sending requests, or edit the request URL/body directly."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "cacheKey",
+      "value": "foo"
+    },
+    {
+      "key": "cacheValue",
+      "value": "bar"
+    }
+  ],
+  "item": [
+    {
+      "name": "Get Stats",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/cache/stats",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "cache",
+            "stats"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Cache Entry",
+      "request": {
+        "method": "POST",
+        "description": "Creates a new cache entry. Returns 409 Conflict if the key already exists.",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"key\": \"{{cacheKey}}\",\n  \"value\": \"{{cacheValue}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/cache",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "cache"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Cache Entry",
+      "request": {
+        "method": "GET",
+        "description": "Reads the key from {{cacheKey}}. Returns 404 if the key does not exist.",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/cache/{{cacheKey}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "cache",
+            "{{cacheKey}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Cache Entry",
+      "request": {
+        "method": "PUT",
+        "description": "Updates the value for an existing key. Returns 404 if the key does not exist.",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"value\": \"{{cacheValue}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/cache/{{cacheKey}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "cache",
+            "{{cacheKey}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Cache Entry",
+      "request": {
+        "method": "DELETE",
+        "description": "Deletes the key from {{cacheKey}}. Returns 404 if the key does not exist.",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/cache/{{cacheKey}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "cache",
+            "{{cacheKey}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

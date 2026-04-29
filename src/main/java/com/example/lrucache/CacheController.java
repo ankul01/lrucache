@@ -48,10 +48,7 @@ public class CacheController {
             return ResponseEntity.badRequest().build();
         }
         boolean created = cacheService.create(body.key(), body.value());
-        if (!created) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity.status(created ? HttpStatus.CREATED : HttpStatus.OK)
                 .body(Map.of("key", body.key(), "value", body.value()));
     }
 

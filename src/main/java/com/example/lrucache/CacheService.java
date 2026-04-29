@@ -26,12 +26,12 @@ public class CacheService {
     }
 
     /**
-     * Creates a new entry. Returns false (→ 409) if the key already exists.
+     * Inserts or updates an entry. Returns true if created, false if updated.
      */
     public synchronized boolean create(String key, String value) {
-        if (cache.containsKey(key)) return false;
+        boolean isNew = !cache.containsKey(key);
         cache.put(key, value);
-        return true;
+        return isNew;
     }
 
     /**
